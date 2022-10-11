@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
   harris_timer.print_stats();
   cv::imshow("Image with harris2d corner point", harris_output);
   cv::waitKey(0);
-  
+
   // 4. FAST feature detector
   StopWatchTimer fast_timer{"fast_timer"};
   cv::Ptr<cv::FeatureDetector> fast_detector = cv::ORB::create();
@@ -86,11 +86,11 @@ int main(int argc, char *argv[]) {
   fast_timer.stop();
   cv::Mat fast_output;
   cv::drawKeypoints(image, fast_keypoints, fast_output);
-  std::cout << "fast detector dectect " << fast_keypoints.size() << " feature points" << std::endl;
+  std::cout << "fast detector dectect " << fast_keypoints.size()
+            << " feature points" << std::endl;
   fast_timer.print_stats();
   cv::imshow("Image with fast feature points", fast_output);
   cv::waitKey(0);
-  
 
   return 0;
 }
