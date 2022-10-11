@@ -9,4 +9,4 @@ find_package(OpenCV REQUIRED)
 
 add_executable(image_feature_point_extractor src/extractor.cpp)
 target_link_libraries(image_feature_point_extractor  PRIVATE ${OpenCV_LIBS})
-target_include_directories(image_feature_point_extractor PRIVATE ${OpenCV_INCLUDE_DIRS})
+target_include_directories(image_feature_point_extractor PRIVATE src ${OpenCV_INCLUDE_DIRS})
