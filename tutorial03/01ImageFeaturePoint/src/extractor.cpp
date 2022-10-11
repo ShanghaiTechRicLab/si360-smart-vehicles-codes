@@ -16,13 +16,19 @@ int main(int argc, char* argv[]) {
   cv::Ptr<cv::SIFT> siftPtr = cv::SIFT::create();
   std::vector<cv::KeyPoint> sift_keypoints;
   siftPtr->detect(image, sift_keypoints);
-
   std::cout << "SIFT feature detector detect " << sift_keypoints.size() << " points" << std::endl;
-
-
   cv::Mat output;
   cv::drawKeypoints(image, sift_keypoints, output);
   cv::imshow("Image with SIFT feature points", output);
+  cv::waitKey(0);
+
+  cv::Ptr<cv::xfeatures2d::SURF> surfPtr = cv::xfeatures2d::SURF::create();
+  std::vector<cv::KeyPoint> surf_keypoints;
+  surfPtr->detect(image, surf_keypoints);
+  std::cout << "surf feature detector detect " << surf_keypoints.size() << " points" << std::endl;
+  cv::Mat surf_output;
+  cv::drawKeypoints(image, surf_keypoints, surf_output);
+  cv::imshow("Image with surf feature points", surf_output);
   cv::waitKey(0);
 
   const int block_size = 2;
@@ -48,6 +54,7 @@ int main(int argc, char* argv[]) {
   cv::imshow("Image with harris2d corner point", harris_dst_norm_scaled);
   cv::waitKey(0);
 
+  // insert 
 
 
   return 0;
