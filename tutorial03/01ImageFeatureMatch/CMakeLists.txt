@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-project(ImageFeaturePointExtractor)
+project(ImageFeatureMatch)
 
 find_package(OpenCV REQUIRED)
 
