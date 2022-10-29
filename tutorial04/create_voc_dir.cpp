@@ -16,6 +16,8 @@
 #define BOOST_FILESYSTEM_NO_DEPRECATED
 #include <boost/filesystem.hpp>
 
+#include "simple_timer.hpp"
+
 namespace fs = boost::filesystem;
 
 std::vector<fs::path> GetAllImagePaths(fs::path const &root) {
@@ -40,15 +42,6 @@ std::vector<cv::Mat> loadFeatures(std::vector<fs::path> path_to_images,
     fdetector = cv::ORB::create();
   else if (descriptor == "brisk")
     fdetector = cv::BRISK::create();
-#ifdef OPENCV_VERSION_3
-  else if (descriptor == "akaze")
-    fdetector = cv::AKAZE::create();
-#endif
-#ifdef USE_CONTRIB
-  else if (descriptor == "surf")
-    fdetector = cv::xfeatures2d::SURF::create(400, 4, 2, EXTENDED_SURF);
-#endif
-
   else
     throw std::runtime_error("Invalid descriptor");
   assert(!descriptor.empty());
@@ -99,7 +92,10 @@ int main(int argc, char *argv[]) {
   std::vector<fs::path> image_paths = GetAllImagePaths(image_dir);
   std::cout << "Number of images: " << image_paths.size() << std::endl;
 
+  StopWatchTimer feat_timer{"load featrues"};
+  feat_timer.start();
   auto features = loadFeatures(image_paths, feature_name);
+  feat_timer.stop();
 
   const int k = 9;
   const int L = 3;
@@ -109,7 +105,10 @@ int main(int argc, char *argv[]) {
 
   std::cout << "Creating a small " << k << "^" << L << " vocabulary..."
             << std::endl;
+  StopWatchTimer voc_timer{"create voc"};
+  voc_timer.start();
   voc.create(features);
+  voc_timer.stop();
   // create the directory if not exists
   fs::path voc_dir_path = fs::path(voc_dir);
   if (!fs::exists(voc_dir_path)) {
@@ -117,5 +116,13 @@ int main(int argc, char *argv[]) {
   }
   fs::path voc_path = voc_dir_path / fs::path(voc_name);
   std::cerr << "Saving " << voc_path << std::endl;
+  StopWatchTimer save_timer{"save voc"};
+  save_timer.start();
   voc.save(voc_path.string());
+  save_timer.stop();
+
+
+  feat_timer.print_stats();
+  voc_timer.print_stats();
+  save_timer.print_stats();
 }
