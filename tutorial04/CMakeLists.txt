@@ -26,3 +26,5 @@ message(${Boost_LIBRARIES})
 add_executable(create_voc_dir create_voc_dir.cpp)
 target_include_directories(create_voc_dir PRIVATE ${BOOST_INCLUDE_DIRS})
 target_link_libraries(create_voc_dir PRIVATE boost_system boost_filesystem)
+
+add_executable(image2vec image2vec.cpp)
