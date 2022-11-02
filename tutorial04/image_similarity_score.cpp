@@ -10,7 +10,7 @@
 
 void PrintHelp(char *argv[]) {
   std::cout << "Usage: " << argv[0]
-            << " [database path]  [image 1 path] [image 2 path] [feature type]"
+            << " [voc path]  [image 1 path] [image 2 path] [feature type]"
             << std::endl;
   std::cout << std::endl;
 

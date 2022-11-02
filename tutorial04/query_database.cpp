@@ -86,7 +86,7 @@ std::vector<cv::Mat> loadFeatures(const std::vector<fs::path> &path_to_images,
 
 void PrintUsage(char *argv[]) {
   std::cout << "Usage: " << argv[0]
-            << "<voc_path>  <image_to_create_database_dir> <query_image> "
+            << " <voc_path>  <image_to_create_database_dir> <query_image> "
                "<feature_name>"
             << std::endl;
   std::cout << "  feature_name is:" << std::endl;
