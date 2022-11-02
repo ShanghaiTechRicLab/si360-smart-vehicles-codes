@@ -28,3 +28,9 @@ target_include_directories(create_voc_dir PRIVATE ${BOOST_INCLUDE_DIRS})
 target_link_libraries(create_voc_dir PRIVATE boost_system boost_filesystem)
 
 add_executable(image2vec image2vec.cpp)
+
+add_executable(image_similarity_score image_similarity_score.cpp)
+
+add_executable(query_database query_database.cpp)
+target_include_directories(query_database PRIVATE ${BOOST_INCLUDE_DIRS})
+target_link_libraries(query_database PRIVATE boost_system boost_filesystem)
